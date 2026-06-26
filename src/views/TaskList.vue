@@ -5,7 +5,6 @@
       <div class="header-actions">
         <template v-if="isAdmin">
           <button class="btn-primary" @click="showForm = true">+ 新建任务</button>
-          <button class="btn-secondary" @click="shareTasks">分享任务</button>
           <button class="btn-secondary" @click="logout">退出登录</button>
         </template>
         <button v-else class="btn-secondary" @click="showLogin = true">管理员登录</button>
@@ -137,21 +136,7 @@ const handleLogin = () => {
 const weekDays = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
 
 onMounted(() => {
-  // 检查是否是分享链接
-  const hash = window.location.hash
-  if (hash.startsWith('#/share?data=')) {
-    try {
-      const data = hash.replace('#/share?data=', '')
-      const tasks = JSON.parse(decodeURIComponent(data))
-      store.tasks = tasks
-      // 保存到本地存储
-      localStorage.setItem('task-manager-data', JSON.stringify(tasks))
-    } catch (e) {
-      console.error('Failed to load shared tasks:', e)
-    }
-  } else {
-    store.loadFromStorage()
-  }
+  store.loadFromStorage()
 })
 
 const getWeekStart = (date) => {
@@ -246,18 +231,6 @@ const goToDetail = (id) => {
 const handleSubmit = (taskData) => {
   store.addTask(taskData)
   showForm.value = false
-}
-
-const shareTasks = () => {
-  // 将任务数据编码到 URL
-  const data = encodeURIComponent(JSON.stringify(store.tasks))
-  const shareUrl = `${window.location.origin}${window.location.pathname}#/share?data=${data}`
-  navigator.clipboard.writeText(shareUrl).then(() => {
-    alert('分享链接已复制到剪贴板！\n\n请把链接发给工程师，他们打开后就能看到任务。')
-  }).catch(() => {
-    // 如果复制失败，显示 URL 让用户手动复制
-    prompt('请复制以下分享链接给工程师：', shareUrl)
-  })
 }
 </script>
 
