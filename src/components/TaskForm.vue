@@ -149,12 +149,16 @@ onMounted(() => {
 })
 
 const handleSubmit = () => {
-  const submitData = { 
+  const submitData = {
     ...form.value,
-    device: form.value.device === '其他' ? form.value.customDevice : form.value.device,
-    deadline: form.value.endTime
+    device: form.value.device === '其他' ? form.value.customDevice : form.value.device
+  }
+  // 使用 deadline 字段而非 endTime，保持一致性
+  if (submitData.endTime) {
+    submitData.deadline = submitData.endTime
   }
   delete submitData.customDevice
+  delete submitData.endTime
   emit('submit', submitData)
 }
 </script>
