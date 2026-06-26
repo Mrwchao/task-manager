@@ -49,8 +49,8 @@
       </div>
 
       <div class="section">
-        <h3>任务目标</h3>
-        <p class="goal">{{ task.goal || '暂无目标' }}</p>
+        <h3>注意事项</h3>
+        <p class="goal">{{ task.goal || '暂无' }}</p>
       </div>
     </div>
 

@@ -36,10 +36,10 @@
         </div>
 
         <div class="form-group">
-          <label>任务目标</label>
+          <label>注意事项</label>
           <textarea 
             v-model="form.goal" 
-            placeholder="请输入任务目标"
+            placeholder="请输入注意事项"
             rows="3"
           ></textarea>
         </div>
