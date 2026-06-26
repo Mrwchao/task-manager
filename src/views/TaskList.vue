@@ -111,11 +111,18 @@ const login = () => {
   showLogin.value = false
   loginPassword.value = ''
   loginError.value = ''
+  // 使用 nextTick 确保 DOM 更新后再刷新
+  setTimeout(() => {
+    window.location.reload()
+  }, 100)
 }
 
 const logout = () => {
   localStorage.removeItem('taskManagerAdmin')
   isAdmin.value = false
+  setTimeout(() => {
+    window.location.reload()
+  }, 100)
 }
 
 const handleLogin = () => {
@@ -296,16 +303,19 @@ const handleSubmit = (taskData) => {
   background: white;
   border-radius: 12px;
   border: 1px solid #e0e0e0;
+  overflow-x: auto;
 }
 
 .week-table {
   width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
+  min-width: 1200px;
 }
 
 .week-col {
-  width: 100px;
+  width: 80px;
+  min-width: 80px;
   background: #f8f9fa;
   padding: 12px;
   text-align: center;
@@ -315,7 +325,8 @@ const handleSubmit = (taskData) => {
 }
 
 .day-col {
-  width: calc((100% - 100px) / 7);
+  width: calc((100% - 80px) / 7);
+  min-width: 150px;
 }
 
 .day-header {
@@ -340,7 +351,7 @@ const handleSubmit = (taskData) => {
 .day-cell {
   border-right: 1px solid #e0e0e0;
   border-bottom: 1px solid #e0e0e0;
-  min-height: 100px;
+  min-height: 150px;
   vertical-align: top;
 }
 
@@ -351,8 +362,8 @@ const handleSubmit = (taskData) => {
 .mini-task {
   background: #f0f4ff;
   border-radius: 6px;
-  padding: 6px 8px;
-  margin-bottom: 6px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
   cursor: pointer;
   transition: all 0.2s;
   border-left: 3px solid #6366f1;
@@ -370,7 +381,7 @@ const handleSubmit = (taskData) => {
 }
 
 .mini-task-title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   color: #1a1a2e;
   white-space: nowrap;
