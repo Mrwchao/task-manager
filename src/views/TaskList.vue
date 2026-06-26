@@ -96,15 +96,18 @@ const showLogin = ref(false)
 const loginPassword = ref('')
 const loginError = ref('')
 const currentDate = ref(new Date())
+const isAdmin = ref(localStorage.getItem('taskManagerAdmin') === 'true')
+
+// 监听 localStorage 变化
+window.addEventListener('storage', () => {
+  isAdmin.value = localStorage.getItem('taskManagerAdmin') === 'true'
+})
 
 const ADMIN_PASSWORD = 'admin123'
 
-const isAdmin = computed(() => {
-  return localStorage.getItem('taskManagerAdmin') === 'true'
-})
-
 const login = () => {
   localStorage.setItem('taskManagerAdmin', 'true')
+  isAdmin.value = true
   showLogin.value = false
   loginPassword.value = ''
   loginError.value = ''
@@ -112,6 +115,7 @@ const login = () => {
 
 const logout = () => {
   localStorage.removeItem('taskManagerAdmin')
+  isAdmin.value = false
 }
 
 const handleLogin = () => {
